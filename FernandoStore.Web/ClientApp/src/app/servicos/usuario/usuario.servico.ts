@@ -7,13 +7,11 @@ import { Usuario } from "../../model/usuario";
   providedIn: "root"
 })
 export class UsuarioServico {
-
   private baseURL: string;
   private _usuario: Usuario;
 
   set usuario(usuario: Usuario) {
     sessionStorage.setItem("usuario-autenticado", JSON.stringify(usuario));
-    this._usuario = usuario;
   }
 
   get usuario(): Usuario {
@@ -22,9 +20,8 @@ export class UsuarioServico {
     return this._usuario;
   }
 
-
   public usuario_autenticado(): boolean {
-    return this._usuario != null && this._usuario != "" && this._usuario.senha != "";
+    return this._usuario != null && this._usuario.email != "" && this._usuario.senha != "";
   }
 
   public limpar_sessao() {
@@ -32,20 +29,19 @@ export class UsuarioServico {
     this._usuario = null;
   }
 
-
   constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.baseURL = baseUrl;
   }
 
   public verificarUsuario(usuario: Usuario): Observable<Usuario> {
     const headers = new HttpHeaders().set('content-type', 'application/json');
+
     var body = {
       email: usuario.email,
       senha: usuario.senha
     }
 
-    return this.http.post<Usuario>(this.baseURL + "api/usuario/verificarusuario", body, { headers });
-    //this.http.
-
+    return this.http.post<Usuario>(this.baseURL + "api/usuario/verificarUsuario", body, { headers });
   }
+
 }

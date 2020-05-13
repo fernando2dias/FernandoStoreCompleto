@@ -7,6 +7,6 @@ namespace FernandoStore.Dominio.Contracts
 {
     public interface IUsuarioRepositorio : IBaseRepositorio<Usuario>
     {
-
+        Usuario Obter(string email, string senha);
     }
 }

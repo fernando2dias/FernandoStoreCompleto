@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using FernandoStore.Repositorio.Contexto;
+using System.Linq;
 
 namespace FernandoStore.Repositorio.Repositorios
 {
@@ -11,6 +12,12 @@ namespace FernandoStore.Repositorio.Repositorios
     {
         public UsuarioRepositorio(FernandoStoreContexto fernandoStoreContexto) : base(fernandoStoreContexto)
         {
+
+        }
+
+        public Usuario Obter(string email, string senha)
+        {
+            return FernandoStoreContexto.Usuarios.FirstOrDefault(u => u.Email == email && u.Senha == senha);
         }
     }
 }

@@ -38,7 +38,7 @@ namespace FernandoStore.Web
                 "Repositorio")));
 
             services.AddScoped<IProdutoRepositorio, ProdutoRepositorio>();
-
+            services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
 
           
