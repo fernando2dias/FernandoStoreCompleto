@@ -71,7 +71,7 @@ namespace FernandoStore.Web.Controllers
                     formFile.CopyTo(streamArquivo);
                 }
 
-                return Ok();
+                return Json(novoNomeArquivo);
 
 
             }
