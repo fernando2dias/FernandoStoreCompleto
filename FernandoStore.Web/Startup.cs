@@ -5,6 +5,7 @@ using FernandoStore.Repositorio.Contexto;
 using FernandoStore.Repositorio.Repositorios;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -32,6 +33,8 @@ namespace FernandoStore.Web
         {
             services.AddControllersWithViews();
 
+            //usei este aqui pra fazer upload de arquivos.
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             var connectionString = Configuration.GetConnectionString("SqlConnection");
             services.AddDbContext<FernandoStoreContexto>(options => options.UseLazyLoadingProxies().UseSqlServer(connectionString, m => m.MigrationsAssembly("FernandoStore." +

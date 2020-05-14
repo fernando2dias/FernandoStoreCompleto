@@ -1,8 +1,11 @@
 ﻿using FernandoStore.Dominio.Contracts;
 using FernandoStore.Dominio.Entity;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,9 +15,13 @@ namespace FernandoStore.Web.Controllers
     public class ProdutoController : Controller
     {
         private readonly IProdutoRepositorio _produtoRepositorio;
-        public ProdutoController(IProdutoRepositorio produtoRepositorio)
+        private IHttpContextAccessor _httpContextAccessor; //para fazer upload de arquivo
+        private IHostingEnvironment _hostingEnvironment; //para fazer upload de arquivo - para obter informações da pasta raiz onde o site esta sendo executado
+        public ProdutoController(IProdutoRepositorio produtoRepositorio, IHttpContextAccessor httpContextAccessor, IHostingEnvironment hostingEnvironment)
         {
-            _produtoRepositorio = produtoRepositorio;             
+            _produtoRepositorio = produtoRepositorio;
+            _httpContextAccessor = httpContextAccessor;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         [HttpGet]
@@ -44,6 +51,38 @@ namespace FernandoStore.Web.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+
+        [HttpPost("EnviarArquivo")]
+        public IActionResult EnviarArquivo()
+        {
+            try
+            {
+                var formFile = _httpContextAccessor.HttpContext.Request.Form.Files["arquivoEnviado"];
+                var nomeArquivo = formFile.FileName;
+                var extensao = nomeArquivo.Split(".").Last();
+                var arrayNomeCompacto = Path.GetFileNameWithoutExtension(nomeArquivo).Take(10).ToArray();
+                var novoNomeArquivo = new string(arrayNomeCompacto).Replace(" ", "-");
+                novoNomeArquivo = $"{novoNomeArquivo}_{DateTime.Now.Year}{DateTime.Now.Month}{DateTime.Now.Day}{DateTime.Now.Hour}{DateTime.Now.Minute}{DateTime.Now.Second}.{extensao}";
+
+                var pastaArquivos = _hostingEnvironment.WebRootPath + "\\arquivos\\";
+                var nomeCompleto = pastaArquivos + novoNomeArquivo;
+
+                using (var streamArquivo = new FileStream(nomeCompleto, FileMode.Create)) {
+                    formFile.CopyTo(streamArquivo);
+                }
+
+                return Ok();
+
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        
+
 
     }
 }
