@@ -25,7 +25,7 @@
               [routerLinkActiveOptions]="{ exact: true }">
             <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
           </li>
-          
+
 
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/produto']">Produto</a>
@@ -35,8 +35,27 @@
             <a class="nav-link text-dark" [routerLink]="['/login']">Login</a>
           </li>
 
-          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="usuarioLogado()">
-            <a class="nav-item nav-link text-dark" [routerLink]="['/sair']" (click)="sair()">Sair</a>
+          <!--<li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="usuarioLogado()">
+    <a class="nav-item nav-link text-dark" [routerLink]="['/sair']" (click)="sair()">Sair</a>
+  </li>-->
+          <!--<li class="nav-item dropdown" *ngIf="usuarioLogado()">
+    <a class="nav-link dropdown-toggle" role="button" aria-haspopup="true" href="#"
+       aria-expanded="false" id="linkMenu" data-toggle="dropdown">{{usuario.nome}}</a>
+
+    <ul class="dropdown-menu" aria-labelledby="linkMenu">
+      <li class="dropdown-item" role="menu" [routerLink]="['/sair']" (click)="sair()">
+        Sair
+      </li>
+    </ul>
+  </li>-->
+
+
+          <li class="nav-item dropdown" *ngIf="usuarioLogado()">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{usuario.nome}}</a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" [routerLink]="['/sair']" (click)="sair()">Sair</a>
+              
+            </div>
           </li>
 
 

@@ -40,11 +40,23 @@ namespace FernandoStore.Web.Controllers
 
 
         [HttpPost]
-        public ActionResult Post()
+        public ActionResult Post([FromBody] Usuario usuario)
         {
             try
             {
-                return Ok();
+                var usuarioCadastrado = _usuarioRepositorio.Obter(usuario.Email);
+
+                if (usuarioCadastrado != null)
+                {
+                    return BadRequest("Usuário já cadastrado no sistema");
+                }
+                else
+                {
+                    _usuarioRepositorio.Adicionar(usuario);
+                    return Ok();
+                }
+
+
             }
             catch (Exception ex)
             {

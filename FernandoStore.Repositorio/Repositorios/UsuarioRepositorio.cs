@@ -19,5 +19,10 @@ namespace FernandoStore.Repositorio.Repositorios
         {
             return FernandoStoreContexto.Usuarios.FirstOrDefault(u => u.Email == email && u.Senha == senha);
         }
+
+        public Usuario Obter(string email)
+        {
+            return FernandoStoreContexto.Usuarios.FirstOrDefault(u => u.Email == email);
+        }
     }
 }
