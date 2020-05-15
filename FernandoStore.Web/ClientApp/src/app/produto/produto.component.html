@@ -5,7 +5,8 @@
 <input type="text" id="inputNome"
        class="form-control mb-2 col-md-4"
        [ngClass]="{
-           'is-invalid': nome.invalid && (nome.dirty || nome.touched)
+           'is-invalid': nome.invalid && (nome.dirty || nome.touched),
+            'is-valid': nome.valid && (nome.dirty || nome.touched)
            }"
        name="nomeProduto"
        placeholder="Nome do Produto"
@@ -27,7 +28,8 @@
 <input type="text" id="inputDescricao"
        class="form-control mb-2 col-md-4"
        [ngClass]="{
-           'is-invalid': descricao.invalid && (descricao.dirty || descricao.touched)        
+           'is-invalid': descricao.invalid && (descricao.dirty || descricao.touched),
+            'is-valid': descricao.valid && (descricao.dirty || descricao.touched)
            }"
        name="descricaoProduto"
        placeholder="Descricao do Produto"
@@ -46,7 +48,8 @@
 <input type="number" id="inputPreco"
        class="form-control mb-2 col-md-2"
        [ngClass]="{
-           'is-invalid': preco.invalid && (preco.dirty || preco.touched)
+           'is-invalid': preco.invalid && (preco.dirty || preco.touched),
+            'is-valid': preco.valid && (preco.dirty || preco.touched)
            }"
        name="precoProduto"
        placeholder="Preço"
@@ -70,8 +73,18 @@
 </div>
 
 
-<button class="btn btn-primary" (click)="cadastrar" [disabled]="ativar_spinner">
+<button class="btn btn-primary mb-2" (click)="cadastrar()" [disabled]="ativar_spinner">
   <span class="spinner-border spinner-border-sm" *ngIf="ativar_spinner"></span>
   Cadastrar
 </button>
+
+
+
+<div class="alert alert-danger mb-2 col-md-4" *ngIf="mensagem">
+  {{mensagem}}
+</div>
+
+<div class="alert alert-success mb-2 col-md-4">
+  Produto cadastrado com sucesso
+</div>
 
