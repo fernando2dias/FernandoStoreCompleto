@@ -11,7 +11,7 @@ namespace FernandoStore.Repositorio.Config
         {
             builder.HasKey(p => p.Id);
             builder.Property(p => p.Nome).IsRequired().HasMaxLength(50);
-            builder.Property(p => p.Preco).IsRequired().HasColumnType("decimal(5,2)");
+            builder.Property(p => p.Preco).IsRequired().HasColumnType("decimal(10,2)");
             builder.Property(p => p.Descricao).IsRequired().HasMaxLength(500);
         }
     }
