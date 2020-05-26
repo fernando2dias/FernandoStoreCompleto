@@ -11,7 +11,6 @@ namespace FernandoStore.Repositorio.Contexto
     public class FernandoStoreContexto : DbContext
     {
         
-
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<Pedido> Pedidos { get; set; }

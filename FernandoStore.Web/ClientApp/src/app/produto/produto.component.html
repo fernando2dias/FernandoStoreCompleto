@@ -19,7 +19,7 @@
     Nome do produto é de preenchimento obrigatório!
   </div>
 
-  
+
 </div>
 
 
@@ -35,11 +35,15 @@
        placeholder="Descricao do Produto"
        [(ngModel)]="produto.descricao"
        #descricao="ngModel"
+       minlength="50"
        required />
 <div class="invalid-feedback mb-2" *ngIf="descricao.invalid && (descricao.dirty || descricao.touched)">
   <div *ngIf="descricao.errors.required">
     Descrição do produto é de preenchimento obrigatório!
   </div>
+</div>
+<div class="invalid-feedback mb-2" *ngIf="descricao.errors.minlength">
+  Campo deve ter no minimo 50 caracteres.
 </div>
 
 
@@ -55,6 +59,7 @@
        placeholder="Preço"
        [(ngModel)]="produto.preco"
        #preco="ngModel"
+       
        required />
 
 <div class="invalid-feedback mb-2" *ngIf="preco.invalid && (preco.dirty || preco.touched)">
