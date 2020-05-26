@@ -1,4 +1,46 @@
-<div *ngFor="let p of produtos">
-  {{p.nome}}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Preço</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of produtos">
+            <td><img src="../../../../../arquivos/{{p.nomeArquivo}}" width="50px" /></td>
+            <td>{{p.descricao}}</td>
+            <td><input class="form-control" type="number"  value="1" (change)="atualizarPreco(p, $event.target.value)"
+                [(ngModel)]="p.quantidade" min="1" placeholder="1" /></td>
+            <td>{{p.preco | number:'1.2-2'}}</td>
+            <td><button class="btn btn-danger btn-sm" (click)="remover(p)" style="width:100%">X</button></td>
+          </tr>
+          </tbody>
+      </table>
+    </div>
+
+
+    <div class="col-md-4">
+      <div class="row">
+        <div class="card">
+          <div class="card-header">Resumo</div>
+          <div class="card-body">
+            <table>
+              <tr>
+                <td>Total: </td><td>R$ {{total | number:'1.2-2'}}</td>
+              </tr>
+            </table>
+
+            <button class="btn btn-primary">Efetivar Compra</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>
